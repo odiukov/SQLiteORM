@@ -133,6 +133,16 @@ namespace Assets.Scripts
             else
                 return "DELETE FROM " + typeof(T).Name + " WHERE Id  = " + value;
         }
+        
+        public string RemoveItems<T>(string fieldNameSearch, object valueSearch)
+        {
+            if (valueSearch.GetType().Name == "String" || valueSearch.GetType().Name == "DateTime")
+                return "DELETE FROM " + typeof(T).Name + " WHERE " + fieldNameSearch + "  = '" + valueSearch + "'";
+            else
+                return "DELETE FROM " + typeof(T).Name + " WHERE " + fieldNameSearch + "  = " + valueSearch;
+        }
+        
+        
         public string UpdateItemsByFieldName<T>(string fieldNameSearch, string valueSearch, string fieldNameToUpdate, string newValue)
         {
             return "UPDATE " + typeof(T).Name + " SET " + fieldNameToUpdate + " = " + newValue + " WHERE " + fieldNameSearch + " = " + valueSearch;
