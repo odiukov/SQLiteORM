@@ -151,7 +151,7 @@ namespace Assets.Scripts
                 switch ((it.GetValue(newItem, null)).GetType().Name)
                 {
                     case "Boolean":
-                        body_text += it.Name + string.Format("{0}, ", (it.GetValue(newItem, null).ToString() == "False") ? 0 : 1);
+                        body_text += it.Name + " = "+ string.Format("{0}, ", (it.GetValue(newItem, null).ToString() == "False") ? 0 : 1);
                         break;
 
                     case "Int32":
@@ -181,7 +181,7 @@ namespace Assets.Scripts
 
                 }
             }
-            footer_text = " WHERE " + fieldNameSearch + " = " + valueSearch;
+            footer_text = " WHERE " + fieldNameSearch + " = '" + valueSearch + "'";
             return string.Format("{0}{1}{2}", header_text, body_text.Substring(0, body_text.Length - 2), footer_text); 
         }
         //
