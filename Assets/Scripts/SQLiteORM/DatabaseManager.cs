@@ -163,6 +163,13 @@ namespace Assets.Scripts
                 return true;
             return false;
         }
+        
+        public bool DeleteRecord<T>(string fieldNameSearch, object valueSearch)
+        {
+            if (ExecuteScript(new ParseAndGet().RemoveItems<T>(fieldNameSearch, valueSearch)))
+                return true;
+            return false;
+        }
 
         public bool DropTable<T>()
         {

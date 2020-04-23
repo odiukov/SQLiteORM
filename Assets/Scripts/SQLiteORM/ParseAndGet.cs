@@ -133,6 +133,16 @@ namespace Assets.Scripts
             else
                 return "DELETE FROM " + typeof(T).Name + " WHERE Id  = " + value;
         }
+        
+        public string RemoveItems<T>(string fieldNameSearch, object valueSearch)
+        {
+            if (valueSearch.GetType().Name == "String" || valueSearch.GetType().Name == "DateTime")
+                return "DELETE FROM " + typeof(T).Name + " WHERE " + fieldNameSearch + "  = '" + valueSearch + "'";
+            else
+                return "DELETE FROM " + typeof(T).Name + " WHERE " + fieldNameSearch + "  = " + valueSearch;
+        }
+        
+        
         public string UpdateItemsByFieldName<T>(string fieldNameSearch, string valueSearch, string fieldNameToUpdate, string newValue)
         {
             return "UPDATE " + typeof(T).Name + " SET " + fieldNameToUpdate + " = " + newValue + " WHERE " + fieldNameSearch + " = " + valueSearch;
@@ -151,7 +161,7 @@ namespace Assets.Scripts
                 switch ((it.GetValue(newItem, null)).GetType().Name)
                 {
                     case "Boolean":
-                        body_text += it.Name + string.Format("{0}, ", (it.GetValue(newItem, null).ToString() == "False") ? 0 : 1);
+                        body_text += it.Name + " = "+ string.Format("{0}, ", (it.GetValue(newItem, null).ToString() == "False") ? 0 : 1);
                         break;
 
                     case "Int32":
@@ -181,7 +191,7 @@ namespace Assets.Scripts
 
                 }
             }
-            footer_text = " WHERE " + fieldNameSearch + " = " + valueSearch;
+            footer_text = " WHERE " + fieldNameSearch + " = '" + valueSearch + "'";
             return string.Format("{0}{1}{2}", header_text, body_text.Substring(0, body_text.Length - 2), footer_text); 
         }
         //
